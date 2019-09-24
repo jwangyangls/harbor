@@ -26,6 +26,7 @@
                                        autocomplete="off"
                                        (keyup)='handleValidation()'>
                                 <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                                <span class="spinner spinner-inline" [hidden]="!checkOnGoing"></span>
                             </div>
                             <clr-control-error *ngIf="!isRobotNameValid" class="tooltip-content">
                                 {{ nameTooltipText | translate }}
