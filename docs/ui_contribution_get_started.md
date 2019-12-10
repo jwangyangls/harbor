@@ -87,6 +87,7 @@ If you already have a harbor backend environment, you can build a frontend devel
 3. Execute the following command，serve Harbor locally.
 
     ```
+    npm run build_hbr_echarts
     npm run start
     ```
 

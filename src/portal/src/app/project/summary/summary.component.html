@@ -1,27 +1,7 @@
-<div class="summary display-flex" *ngIf="summaryInformation">
+<ng-container *ngIf="summaryInformation">
+  <div class="summary display-flex">
   <div class="summary-left">
-    <div class="display-flex project-detail pt-1">
-      <h5 class="mt-0 width-7-5">{{'SUMMARY.PROJECT_REPOSITORY' | translate}}</h5>
-      <ul class="list-unstyled">
-        <li>{{summaryInformation?.repo_count}}</li>
-      </ul>
-    </div>
-    <div class="display-flex project-detail pt-1" *ngIf="withHelmChart">
-      <h5 class="mt-0 width-7-5">{{'SUMMARY.PROJECT_HELM_CHART' | translate}}</h5>
-      <ul class="list-unstyled">
-        <li>{{summaryInformation?.chart_count}}</li>
-      </ul>
-    </div>
-    <div *ngIf="showProjectMemberInfo" class="display-flex project-detail pt-1">
-      <h5 class="mt-0 width-7-5">{{'SUMMARY.PROJECT_MEMBER' | translate}}</h5>
-      <ul class="list-unstyled">
-        <li>{{ summaryInformation?.project_admin_count }} {{'SUMMARY.ADMIN' | translate}}</li>
-        <li>{{ summaryInformation?.master_count }} {{'SUMMARY.MASTER' | translate}}</li>
-        <li>{{ summaryInformation?.developer_count }} {{'SUMMARY.DEVELOPER' | translate}}</li>
-        <li>{{ summaryInformation?.guest_count }} {{'SUMMARY.GUEST' | translate}}</li>
-        <li>{{ summaryInformation?.limited_guest_count }} {{'SUMMARY.LIMITED_GUEST' | translate}}</li>
-      </ul>
-    </div>
+    <h3>Summary</h3>
   </div>
   <div *ngIf="showQuotaInfo" class="summary-right pt-1">
     <div class="display-flex  project-detail">
@@ -30,41 +10,42 @@
         <div class="display-flex quotas-progress">
           <label class="mr-1">{{'SUMMARY.ARTIFACT_COUNT' | translate}}</label>
           <label class="progress-label">{{ summaryInformation?.quota?.used?.count }} {{ 'QUOTA.OF' | translate }}
-            {{ summaryInformation?.quota?.hard?.count ===-1?('QUOTA.UNLIMITED' | translate): summaryInformation?.quota?.hard?.count }}
-          </label>
-        </div>
-
-        <div>
-          <div class="progress-block progress-min-width progress-div">
-            <div class="progress success" [class.danger]="summaryInformation?.quota?.hard?.count!==-1?summaryInformation?.quota?.used?.count/summaryInformation?.quota?.hard?.count>quotaDangerCoefficient:false"
-              [class.warning]="summaryInformation?.quota?.hard?.count!==-1?summaryInformation?.quota?.used?.count/summaryInformation?.quota?.hard?.count<=quotaDangerCoefficient&&summaryInformation?.quota?.used?.count/summaryInformation?.quota?.hard?.count>=quotaWarningCoefficient:false">
-              <progress
-                value="{{summaryInformation?.quota?.hard?.count===-1? 0 : summaryInformation?.quota?.used?.count}}"
-                max="{{summaryInformation?.quota?.hard?.count}}" data-displayval="100%"></progress>
-            </div>
-          </div>
-        </div>
-        <div class="display-flex quotas-progress">
-          <label class="mr-1">{{'SUMMARY.STORAGE_CONSUMPTION' | translate}}</label>
-          <label class="progress-label">
-              {{ summaryInformation?.quota?.hard?.storage !== -1 ?(getIntegerAndUnit(summaryInformation?.quota?.hard?.storage, summaryInformation?.quota?.used?.storage).partNumberUsed
-                + getIntegerAndUnit(summaryInformation?.quota?.hard?.storage, summaryInformation?.quota?.used?.storage).partCharacterUsed) : getSuitableUnit(summaryInformation?.quota?.used?.storage)}}
-
-            <!-- {{ getSuitableUnit(summaryInformation?.quota?.used?.storage) }}  -->
-            {{ 'QUOTA.OF' | translate }}
-            {{ summaryInformation?.quota?.hard?.storage ===-1? ('QUOTA.UNLIMITED' | translate) : getIntegerAndUnit(summaryInformation?.quota?.hard?.storage, summaryInformation?.quota?.used?.storage).partNumberHard }}
-             {{ summaryInformation?.quota?.hard?.storage ===-1? '':  getIntegerAndUnit(summaryInformation?.quota?.hard?.storage, summaryInformation?.quota?.used?.storage).partCharacterHard }}
+            {{ summaryInformation?.quota?.hard?.count === -1 ? ('QUOTA.UNLIMITED' | translate) : summaryInformation?.quota?.hard?.count }}
           </label>
         </div>
 
         <div>
           <div class="progress-block progress-min-width progress-div">
             <div class="progress success"
-            [class.danger]="summaryInformation?.quota?.hard?.storage!==-1?summaryInformation?.quota?.used?.storage/summaryInformation?.quota?.hard?.storage>quotaDangerCoefficient:false"
-            [class.warning]="summaryInformation?.quota?.hard?.storage!==-1?summaryInformation?.quota?.used?.storage/summaryInformation?.quota?.hard?.storage<=quotaDangerCoefficient&&summaryInformation?.quota?.used?.storage/summaryInformation?.quota?.hard?.storage>=quotaWarningCoefficient:false">
+                 [class.danger]="summaryInformation?.quota?.hard?.count!==-1?summaryInformation?.quota?.used?.count/summaryInformation?.quota?.hard?.count>quotaDangerCoefficient:false"
+                 [class.warning]="summaryInformation?.quota?.hard?.count!==-1?summaryInformation?.quota?.used?.count/summaryInformation?.quota?.hard?.count<=quotaDangerCoefficient&&summaryInformation?.quota?.used?.count/summaryInformation?.quota?.hard?.count>=quotaWarningCoefficient:false">
               <progress
-                value="{{summaryInformation?.quota?.hard?.storage===-1? 0 : summaryInformation?.quota?.used?.storage}}"
-                max="{{summaryInformation?.quota?.hard?.storage}}" data-displayval="100%"></progress>
+                      value="{{summaryInformation?.quota?.hard?.count===-1? 0 : summaryInformation?.quota?.used?.count}}"
+                      max="{{summaryInformation?.quota?.hard?.count}}" data-displayval="100%"></progress>
+            </div>
+          </div>
+        </div>
+        <div class="display-flex quotas-progress">
+          <label class="mr-1">{{'SUMMARY.STORAGE_CONSUMPTION' | translate}}</label>
+          <label class="progress-label">
+            {{ summaryInformation?.quota?.hard?.storage !== -1 ? (getIntegerAndUnit(summaryInformation?.quota?.hard?.storage, summaryInformation?.quota?.used?.storage).partNumberUsed
+                  + getIntegerAndUnit(summaryInformation?.quota?.hard?.storage, summaryInformation?.quota?.used?.storage).partCharacterUsed) : getSuitableUnit(summaryInformation?.quota?.used?.storage)}}
+
+            <!-- {{ getSuitableUnit(summaryInformation?.quota?.used?.storage) }}  -->
+            {{ 'QUOTA.OF' | translate }}
+            {{ summaryInformation?.quota?.hard?.storage === -1 ? ('QUOTA.UNLIMITED' | translate) : getIntegerAndUnit(summaryInformation?.quota?.hard?.storage, summaryInformation?.quota?.used?.storage).partNumberHard }}
+            {{ summaryInformation?.quota?.hard?.storage === -1 ? '' : getIntegerAndUnit(summaryInformation?.quota?.hard?.storage, summaryInformation?.quota?.used?.storage).partCharacterHard }}
+          </label>
+        </div>
+
+        <div>
+          <div class="progress-block progress-min-width progress-div">
+            <div class="progress success"
+                 [class.danger]="summaryInformation?.quota?.hard?.storage!==-1?summaryInformation?.quota?.used?.storage/summaryInformation?.quota?.hard?.storage>quotaDangerCoefficient:false"
+                 [class.warning]="summaryInformation?.quota?.hard?.storage!==-1?summaryInformation?.quota?.used?.storage/summaryInformation?.quota?.hard?.storage<=quotaDangerCoefficient&&summaryInformation?.quota?.used?.storage/summaryInformation?.quota?.hard?.storage>=quotaWarningCoefficient:false">
+              <progress
+                      value="{{summaryInformation?.quota?.hard?.storage===-1? 0 : summaryInformation?.quota?.used?.storage}}"
+                      max="{{summaryInformation?.quota?.hard?.storage}}" data-displayval="100%"></progress>
             </div>
           </div>
         </div>
@@ -73,3 +54,99 @@
     </div>
   </div>
 </div>
+  <div class="clr-row mt-2">
+  <div class="clr-col">
+    <div class="card">
+      <div class="card-block">
+        <h4 class="card-title">
+          <span>{{'SUMMARY.PROJECT_REPOSITORY' | translate}}</span>
+        </h4>
+        <div class="card-container">
+            <div class="total-members">{{summaryInformation?.repo_count}}</div>
+        </div>
+      </div>
+      <div class="card-footer height-124"></div>
+    </div>
+  </div>
+  <div class="clr-col">
+    <div class="card">
+      <div class="card-block">
+        <h4 class="card-title">
+          <span>{{'SUMMARY.PROJECT_HELM_CHART' | translate}}</span>
+        </h4>
+        <div class="card-container">
+          <div class="total-members">{{summaryInformation?.chart_count}}</div>
+        </div>
+      </div>
+      <div class="card-footer height-124"></div>
+    </div>
+  </div>
+  <div class="clr-col">
+    <div class="card">
+      <div class="card-block">
+        <h4 class="card-title mb-0">
+          <span>{{'SUMMARY.PROJECT_MEMBER' | translate}}</span>
+        </h4>
+        <div class="card-container">
+           <div class="total-members">{{getTotalMembers()}}</div>
+        </div>
+      </div>
+      <div class="card-footer height-124">
+        <ul class="list-unstyled">
+               <li>
+                 <div class="clr-row">
+                   <div class="clr-col-4">
+                     <span class="member-type">{{'SUMMARY.ADMIN' | translate}}</span>
+                   </div>
+                   <div class="clr-col-4">
+                     {{ summaryInformation?.project_admin_count }}
+                   </div>
+                 </div>
+               </li>
+               <li>
+                 <div class="clr-row">
+                   <div class="clr-col-4">
+                     <span class="member-type">{{'SUMMARY.MASTER' | translate}}</span>
+                   </div>
+                   <div class="clr-col-4">
+                     {{ summaryInformation?.master_count }}
+                   </div>
+                 </div>
+               </li>
+               <li>
+                 <div class="clr-row">
+                   <div class="clr-col-4">
+                     <span class="member-type">{{'SUMMARY.DEVELOPER' | translate}}</span>
+                   </div>
+                   <div class="clr-col-4">
+                     {{ summaryInformation?.developer_count }}
+                   </div>
+                 </div>
+               </li>
+               <li>
+                 <div class="clr-row">
+                   <div class="clr-col-4">
+                     <span class="member-type">{{'SUMMARY.GUEST' | translate}}</span>
+                   </div>
+                   <div class="clr-col-4">
+                     {{ summaryInformation?.guest_count }}
+                   </div>
+                 </div>
+               </li>
+               <li>
+                 <div class="clr-row">
+                   <div class="clr-col-4">
+                     <span class="member-type">{{'SUMMARY.LIMITED_GUEST' | translate}}</span>
+                   </div>
+                   <div class="clr-col-4">
+                     {{ summaryInformation?.limited_guest_count }}
+                   </div>
+                 </div>
+               </li>
+             </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</ng-container>
+
