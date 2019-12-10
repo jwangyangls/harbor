@@ -222,8 +222,8 @@ export class TagDetailComponent implements OnInit {
       error => this.errorHandler.error(error)
     );
   }
-  passMetadataToChart() {
-    return [
+  passMetadataToChart(): string {
+    return JSON.stringify([
       {
         text: 'VULNERABILITY.SEVERITY.CRITICAL',
         value: this.criticalCount ? this.criticalCount : 0,
@@ -254,6 +254,6 @@ export class TagDetailComponent implements OnInit {
         value: this.unknownCount ? this.unknownCount : 0,
         color: 'grey'
       },
-    ];
+    ]);
   }
 }

@@ -59,5 +59,14 @@ export class SummaryComponent implements OnInit {
   public get withHelmChart(): boolean {
     return this.appConfigService.getConfig().with_chartmuseum;
   }
-
+  getTotalMembers(): number {
+    if (this.summaryInformation) {
+      return +(this.summaryInformation.project_admin_count ? this.summaryInformation.project_admin_count : 0)
+      + (this.summaryInformation.master_count ? this.summaryInformation.master_count : 0)
+      + (this.summaryInformation.developer_count ? this.summaryInformation.developer_count : 0)
+      + (this.summaryInformation.guest_count ? this.summaryInformation.guest_count : 0)
+      + (this.summaryInformation.limited_guest_count ? this.summaryInformation.limited_guest_count : 0);
+    }
+    return null;
+  }
 }

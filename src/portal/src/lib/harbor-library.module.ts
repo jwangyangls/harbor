@@ -88,6 +88,7 @@ import { ClipboardDirective } from "./components/third-party/ngx-clipboard/clipb
 import { ChannelService } from "./services/channel.service";
 import { SharedModule } from "./utils/shared/shared.module";
 import { TranslateServiceInitializer } from "./i18n";
+import { HarborEchartsComponent } from './components/hbr-echart/harbor-echarts/harbor-echarts.component';
 
 /**
  * Declare default service configuration; all the endpoints will be defined in
@@ -251,7 +252,8 @@ export interface HarborModuleConfig {
       ResultTipHistogramComponent,
       ResultBarChartComponent,
       ResultGridComponent,
-      ResultTipComponent
+      ResultTipComponent,
+      HarborEchartsComponent
   ],
   exports: [
       SharedModule,
@@ -297,7 +299,8 @@ export interface HarborModuleConfig {
       ResultTipHistogramComponent,
       ResultBarChartComponent,
       ResultGridComponent,
-      ResultTipComponent
+      ResultTipComponent,
+      HarborEchartsComponent,
   ],
   providers: []
 })
