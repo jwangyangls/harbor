@@ -68,3 +68,27 @@
 .dropdown-lang {
     padding-right: 1.3rem;
 }
+.header {
+    .header-actions {
+        .theme-select {
+            width: 5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+            font-size: 12px;
+            letter-spacing: 1px;
+            font-weight: 500;
+            cursor: pointer;
+            &:hover {
+                opacity: 1;
+            }
+            clr-icon {
+                position: static;
+                transform: none;
+                
+            }
+        } 
+    } 
+}
+

@@ -79,3 +79,20 @@ clr-vertical-nav {
 .right {
     text-align: right;
 }
+.clr-vertical-nav{
+    .vertical-nav-footer{
+        .theme-select {
+            width: 2.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 1.3rem;
+            font-size: 12px;
+            letter-spacing: 1px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+    }
+    
+}
+

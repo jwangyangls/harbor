@@ -19,7 +19,7 @@ import { SessionService } from '../../shared/session.service';
 @Component({
   selector: 'repository',
   templateUrl: 'tag-detail-page.component.html',
-  styles: ['.arrow-block a{text-decoration: none; cursor: pointer; cursor: pointer; color: #007cbb; font-size: 12px;}']
+  styles: ['.arrow-block a{text-decoration: none; cursor: pointer; cursor: pointer; color: #007cbb; font-size: 16px;}']
 })
 export class TagDetailPageComponent implements OnInit {
   tagId: string;

@@ -59,7 +59,7 @@
                 </clr-control-error>
             </clr-input-container>
 
-                <div class="clr-form-control cli-secret" *ngIf="account.oidc_user_meta">
+                <div class="clr-form-control cli-secret" *ngIf="!account.oidc_user_meta">
                 <label class="clr-control-label">{{'PROFILE.CLI_PASSWORD' | translate}}
                     <clr-tooltip>
                         <clr-icon clrTooltipTrigger shape="info-circle" size="20"></clr-icon>
@@ -69,7 +69,7 @@
                     </clr-tooltip>
                 </label>
                 <input id="cli_password" class="clr-input input-cli" type="password" name="cli_password" disabled
-                    [ngModel]="'account.oidc_user_meta.secret'" size="33">
+                    [ngModel]="'account.oidc_user_meta?.secret'" size="33">
 
                 <button (click)="generateCli(account.user_id)" id="generate-cli-btn"
                     class="btn btn-outline btn-sm btn-padding-less" *ngIf="showGenerateCli">
@@ -81,7 +81,7 @@
                 </button>
                 <div class="rename-tool reset-cli">
                     <hbr-copy-input #copyInput (onCopySuccess)="onSuccess($event)" (onCopyError)="onError($event)"
-                        iconMode="true" [defaultValue]="account.oidc_user_meta.secret"></hbr-copy-input>
+                        iconMode="true" [defaultValue]="account.oidc_user_meta?.secret"></hbr-copy-input>
                 </div>
                 <div (click)="showGenerateCliFn()" *ngIf="!showGenerateCli" id="hidden-generate-cli"
                     class="hidden-generate-cli">···</div>

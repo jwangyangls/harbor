@@ -137,7 +137,7 @@
                     <div class="clr-col padding-top-16 pl-2">
                         <div class="clr-row expire-data">
                             <label for="expires"
-                                class="bottom-line clr-col-3">{{'CVE_WHITELIST.EXPIRES_AT'|translate}}</label>
+                                class="bottom-line bottom-line-project-config clr-col-3">{{'CVE_WHITELIST.EXPIRES_AT'|translate}}</label>
                             <div class="underline">
                                 <input #dateSystemInput readonly type="date" [(clrDate)]="systemExpiresDate">
                                 <input [disabled]="!hasChangeConfigRole" *ngIf="!isUseSystemWhitelist()" #dateInput
