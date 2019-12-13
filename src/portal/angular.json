@@ -29,7 +29,7 @@
               "src/global.scss",
               "src/styles.css",
               {
-                "input": "node_modules/@clr/ui/clr-ui-dark.min.css",
+                "input": "src/css/dark-custom.scss",
                 "inject": false,
                 "bundleName": "dark-theme"
               },
