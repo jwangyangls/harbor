@@ -68,7 +68,7 @@ export class HarborShellComponent implements OnInit, OnDestroy {
     showScannerInfo: boolean = false;
     scannerDocUrl: string = SCANNERS_DOC;
     // styleMode: string;
-    themeArray: ThemeInterface = clone(themeArray);
+    themeArray: ThemeInterface[] = clone(themeArray);
 
     styleMode = this.themeArray[0].showStyle;
 
