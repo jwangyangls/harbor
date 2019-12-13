@@ -1,6 +1,7 @@
 /**
     the css for harbor skin
  */
+ @import "../../node_modules/@clr/ui/clr-ui.min.css";
 clr-vertical-nav {
    background: #191a23 !important;
    box-shadow: 2px 0 6px rgba(0,21,41,.35);

@@ -37,6 +37,11 @@
                 "input":"node_modules/@clr/ui/clr-ui.min.css",
                 "inject": false,
                 "bundleName": "light-theme"
+              },
+              {
+                "input":"src/css/skin.scss",
+                "inject": false,
+                "bundleName": "customer"
               }
             ],
             "scripts": [

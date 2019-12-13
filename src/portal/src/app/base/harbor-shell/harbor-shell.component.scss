@@ -90,8 +90,17 @@ clr-vertical-nav {
             font-size: 12px;
             letter-spacing: 1px;
             font-weight: 500;
+            margin: 0;
         }
     }
     
+}
+::ng-deep{
+   .is-solid {
+       margin-right: 10px;
+        svg {
+            width: 16px;
+        }
+    } 
 }
 

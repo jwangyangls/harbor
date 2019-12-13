@@ -85,8 +85,9 @@
                     <ng-container *ngIf="theme.showStyle === styleMode">
                         <a class="nav-link nav-icon theme-select"
                             (click)="themeChanged(theme)">
-                            <clr-icon  *ngIf="styleMode ==='DARK'" shape="sun" class="is-solid"></clr-icon>
+                            <clr-icon  *ngIf="styleMode ==='CUSTOMER'" shape="sun" class="is-solid"></clr-icon>
                             <clr-icon *ngIf="styleMode ==='LIGHT'" shape="moon" class="is-solid"></clr-icon>
+                            <clr-icon *ngIf="styleMode ==='DARK'" shape="wand" class="is-solid"></clr-icon>
                             {{ theme.text }}
                         </a>
                     </ng-container>

@@ -16,27 +16,17 @@ export const themeArray: ThemeInterface[] = [
     },
     {
         showStyle: 'DARK',
+        mode: 'CUSTOMER',
+        text: 'CUSTOMER',
+        currentFileName: 'dark-theme.css',
+        toggleFileName: 'customer.css'
+    },
+
+    {
+        showStyle: 'CUSTOMER',
         mode: 'LIGHT',
         text: 'LIGHT',
-        currentFileName: 'dark-theme.css',
+        currentFileName: 'customer.css',
         toggleFileName: 'light-theme.css'
     },
-    // {
-    //     showStyle: 'LIGHT',
-    //     mode: 'DARK',
-    //     text: 'DARK',
-    //     fileName: 'light-theme.css',
-    // },
-    // {
-    //     showStyle: 'DARK',
-    //     mode: 'SPECIAL',
-    //     text: 'SPECIAL',
-    //     fileName: 'dark-theme.css.css',
-    // },
-    // {
-    //     showStyle: 'SPECIAL',
-    //     mode: 'LIGHT',
-    //     text: 'LIGHT',
-    //     fileName: '.css',
-    // },
 ];
