@@ -16,14 +16,14 @@ export const themeArray: ThemeInterface[] = [
     },
     {
         showStyle: 'DARK',
-        mode: 'CUSTOMER',
-        text: 'CUSTOMER',
+        mode: 'CUSTOM',
+        text: 'CUSTOM',
         currentFileName: 'dark-theme.css',
         toggleFileName: 'customer.css'
     },
 
     {
-        showStyle: 'CUSTOMER',
+        showStyle: 'CUSTOM',
         mode: 'LIGHT',
         text: 'LIGHT',
         currentFileName: 'customer.css',
