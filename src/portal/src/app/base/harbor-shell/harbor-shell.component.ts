@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from "rxjs";
 import { AppConfigService } from '../../app-config.service';
@@ -30,6 +30,11 @@ import { ConfigScannerService, SCANNERS_DOC } from "../../config/scanner/config-
 
 const HAS_SHOWED_SCANNER_INFO: string = 'hasShowScannerInfo';
 const YES: string = 'yes';
+const HAS_STYLE_MODE: string = 'styleModeLocal';
+import { ThemeService } from "../../theme.service";
+import { themeArray, ThemeInterface } from '../../theme';
+
+import { clone } from '../../../lib/utils/utils';
 
 @Component({
     selector: 'harbor-shell',
@@ -39,16 +44,16 @@ const YES: string = 'yes';
 
 export class HarborShellComponent implements OnInit, OnDestroy {
 
-    @ViewChild(AccountSettingsModalComponent, {static: false})
+    @ViewChild(AccountSettingsModalComponent, { static: false })
     accountSettingsModal: AccountSettingsModalComponent;
 
-    @ViewChild(PasswordSettingComponent, {static: false})
+    @ViewChild(PasswordSettingComponent, { static: false })
     pwdSetting: PasswordSettingComponent;
 
-    @ViewChild(NavigatorComponent, {static: false})
+    @ViewChild(NavigatorComponent, { static: false })
     navigator: NavigatorComponent;
 
-    @ViewChild(AboutDialogComponent, {static: false})
+    @ViewChild(AboutDialogComponent, { static: false })
     aboutDialog: AboutDialogComponent;
 
     // To indicator whwther or not the search results page is displayed
@@ -62,6 +67,10 @@ export class HarborShellComponent implements OnInit, OnDestroy {
     isHttpAuthMode: boolean;
     showScannerInfo: boolean = false;
     scannerDocUrl: string = SCANNERS_DOC;
+    // styleMode: string;
+    themeArray: ThemeInterface = clone(themeArray);
+
+    styleMode = this.themeArray[0].showStyle;
 
     constructor(
         private route: ActivatedRoute,
@@ -69,7 +78,10 @@ export class HarborShellComponent implements OnInit, OnDestroy {
         private session: SessionService,
         private searchTrigger: SearchTriggerService,
         private appConfigService: AppConfigService,
-        private scannerService: ConfigScannerService) { }
+        private scannerService: ConfigScannerService,
+        public theme: ThemeService,
+
+    ) { }
 
     ngOnInit() {
         if (this.appConfigService.isLdapMode()) {
@@ -89,8 +101,10 @@ export class HarborShellComponent implements OnInit, OnDestroy {
             this.isSearchResultsOpened = false;
         });
         if (!(localStorage && localStorage.getItem(HAS_SHOWED_SCANNER_INFO) === YES)) {
-           this.getDefaultScanner();
+            this.getDefaultScanner();
         }
+        // set local in app component
+        this.styleMode = localStorage.getItem(HAS_STYLE_MODE);
     }
     closeInfo() {
         if (localStorage) {
@@ -156,5 +170,10 @@ export class HarborShellComponent implements OnInit, OnDestroy {
             default:
                 break;
         }
+    }
+    themeChanged(theme) {
+        this.styleMode = theme.mode;
+        this.theme.loadStyle(theme.toggleFileName);
+        localStorage.setItem(HAS_STYLE_MODE, this.styleMode);
     }
 }
