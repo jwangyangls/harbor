@@ -52,17 +52,17 @@ export class AppComponent {
             this.titleService.setTitle(res);
         });
 
-         let  localHasStyle = localStorage && localStorage.getItem(HAS_STYLE_MODE);
-         if (localHasStyle) {
-             this.styleMode = localStorage.getItem(HAS_STYLE_MODE);
-         } else {
-             this.styleMode = this.themeArray[0].showStyle;
-             localStorage.setItem(HAS_STYLE_MODE, this.styleMode);
-         }
-         this.themeArray.forEach((themeItem: ThemeInterface) => {
-             if (themeItem.showStyle === this.styleMode) {
-                 this.theme.loadStyle(themeItem.currentFileName);
-             }
-         });
+        //  let  localHasStyle = localStorage && localStorage.getItem(HAS_STYLE_MODE);
+        //  if (localHasStyle) {
+        //      this.styleMode = localStorage.getItem(HAS_STYLE_MODE);
+        //  } else {
+        //      this.styleMode = this.themeArray[0].showStyle;
+        //      localStorage.setItem(HAS_STYLE_MODE, this.styleMode);
+        //  }
+        //  this.themeArray.forEach((themeItem: ThemeInterface) => {
+        //      if (themeItem.showStyle === this.styleMode) {
+        //          this.theme.loadStyle(themeItem.currentFileName);
+        //      }
+        //  });
     }
 }

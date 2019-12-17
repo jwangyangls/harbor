@@ -46,12 +46,12 @@ import { ProjectQuotasComponent } from './project-quotas/project-quotas.componen
 import { HarborLibraryModule } from "../lib/harbor-library.module";
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
-
 registerLocaleData(zh, 'zh-cn');
 registerLocaleData(es, 'es-es');
 registerLocaleData(localeFr, 'fr-fr');
 registerLocaleData(localePt, 'pt-br');
 registerLocaleData(localeTr, 'tr-tr');
+
 
 export function initConfig(configService: AppConfigService, skinableService: SkinableConfig) {
     return () => {
@@ -90,16 +90,16 @@ export function getCurrentLanguage(translateService: TranslateService) {
     exports: [
     ],
     providers: [
-      AppConfigService,
-      SkinableConfig,
-      {
-        provide: APP_INITIALIZER,
-        useFactory: initConfig,
-        deps: [ AppConfigService, SkinableConfig],
-        multi: true
-      },
-      {provide: LOCALE_ID, useValue: "en-US"},
-      { provide: HTTP_INTERCEPTORS, useClass: InterceptHttpService, multi: true }
+        AppConfigService,
+        SkinableConfig,
+        {
+            provide: APP_INITIALIZER,
+            useFactory: initConfig,
+            deps: [AppConfigService, SkinableConfig],
+            multi: true
+        },
+        { provide: LOCALE_ID, useValue: "en-US" },
+        { provide: HTTP_INTERCEPTORS, useClass: InterceptHttpService, multi: true }
 
     ],
     schemas: [
@@ -107,4 +107,4 @@ export function getCurrentLanguage(translateService: TranslateService) {
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
