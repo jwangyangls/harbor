@@ -18,7 +18,6 @@ RUN python -c 'import sys, yaml, json; y=yaml.load(sys.stdin.read()); print json
 
 COPY ./LICENSE /build_dir
 COPY src/portal /build_dir
-
 RUN node --max_old_space_size=2048 'node_modules/@angular/cli/bin/ng' build --prod
 
 FROM goharbor/harbor-portal-base:${harbor_base_image_version}

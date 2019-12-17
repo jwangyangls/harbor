@@ -20,23 +20,5 @@ export const themeArray: ThemeInterface[] = [
         text: 'LIGHT',
         currentFileName: 'dark-theme.css',
         toggleFileName: 'light-theme.css'
-    },
-    // {
-    //     showStyle: 'LIGHT',
-    //     mode: 'DARK',
-    //     text: 'DARK',
-    //     fileName: 'light-theme.css',
-    // },
-    // {
-    //     showStyle: 'DARK',
-    //     mode: 'SPECIAL',
-    //     text: 'SPECIAL',
-    //     fileName: 'dark-theme.css.css',
-    // },
-    // {
-    //     showStyle: 'SPECIAL',
-    //     mode: 'LIGHT',
-    //     text: 'LIGHT',
-    //     fileName: '.css',
-    // },
+    }
 ];
