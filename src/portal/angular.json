@@ -24,23 +24,24 @@
             ],
             "styles": [
               "node_modules/@clr/icons/clr-icons.min.css",
+              "node_modules/@clr/ui/clr-ui.min.css",
               "node_modules/swagger-ui/dist/swagger-ui.css",
               "node_modules/prismjs/themes/prism-solarizedlight.css",
               "src/global.scss",
               "src/styles.css",
               {
                 "input": "src/css/dark-custom.scss",
-                "inject": false,
+                "lazy": true,
                 "bundleName": "dark-theme"
               },
               {
                 "input":"node_modules/@clr/ui/clr-ui.min.css",
-                "inject": false,
+                "lazy": true,
                 "bundleName": "light-theme"
               },
               {
                 "input":"src/css/skin.scss",
-                "inject": false,
+                "lazy": true,
                 "bundleName": "customer"
               }
             ],

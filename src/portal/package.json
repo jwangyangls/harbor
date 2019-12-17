@@ -16,7 +16,8 @@
     "test:chrome-debug": "ng test --code-coverage --browsers Chrome --watch",
     "pree2e": "webdriver-manager update",
     "e2e": "protractor",
-    "build": "ng build --aot",
+    "build": "ng build --aot --extract-css=false",
+    "build-prod": "ng build --prod --extract-css=false",
     "release": "npm run build_hbr_echarts && ng build --prod"
   },
   "private": true,
