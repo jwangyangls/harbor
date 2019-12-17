@@ -16,5 +16,26 @@
         </div>
     </harbor-app>
 </body>
+<script>
+    window.onload = function () {
+        console.log(11111);
+        let styleName = "dark-theme.css";
+        const head = document.getElementsByTagName('head')[0];
+
+        let themeLink = document.getElementById(
+            'client-theme'
+        );
+        if (themeLink) {
+            themeLink.href = styleName;
+        } else {
+            const link = document.createElement('link');
+            link.id = 'client-theme';
+            link.rel = 'stylesheet';
+            link.href = styleName;
+
+            head.appendChild(link);
+        }
+    }
+</script>
 
 </html>

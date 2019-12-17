@@ -16,16 +16,16 @@ loadStyle(styleName: string) {
 
     let themeLink = this.document.getElementById(
         'client-theme'
-    ) as HTMLLinkElement;
+    ) as any;
     if (themeLink) {
         themeLink.href = styleName;
     } else {
-        const style = this.document.createElement('link');
-        style.id = 'client-theme';
-        style.rel = 'stylesheet';
-        style.href = `${styleName}`;
+        const link = this.document.createElement('link');
+        link.id = 'client-theme';
+        link.rel = 'stylesheet';
+        link.href = `${styleName}`;
 
-        head.appendChild(style);
+        head.appendChild(link);
     }
 }
 }
