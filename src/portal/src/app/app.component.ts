@@ -51,5 +51,55 @@ export class AppComponent {
         translate.get(key).subscribe((res: string) => {
             this.titleService.setTitle(res);
         });
+
+    function themeObject() {
+        this.hasStyleMode = 'styleModeLocal';
+        this.themeArray = [
+            {
+                showStyle: 'LIGHT',
+                currentFileName: 'light-theme.css', 
+            },
+            {
+                showStyle: 'DARK',
+                currentFileName: 'dark-theme.css',
+            },
+
+            {
+                showStyle: 'CUSTOM',
+                currentFileName: 'customer.css',
+            },
+        ];
+    }
+    themeObject.prototype.loadStyle = function (styleName) {
+        var head = document.getElementsByTagName('head')[0];
+        var themeLink: any = document.getElementById(
+            'client-theme'
+        );
+        if (themeLink) {
+            themeLink.href = styleName;
+        } else {
+            var style = document.createElement('link');
+            style.id = 'client-theme';
+            style.rel = 'stylesheet';
+            style.href = `${styleName}`;
+            head.appendChild(style);
+        }
+    }
+    themeObject.prototype.setTheme = function () {
+        var styleMode = this.themeArray[0].showStyle;
+        var localHasStyle = localStorage && localStorage.getItem(this.hasStyleMode);
+        if (localHasStyle) {
+            styleMode = localStorage.getItem(this.hasStyleMode);
+        } else {
+            localStorage.setItem(this.hasStyleMode, styleMode);
+        }
+        this.themeArray.forEach((themeItem) => {
+            if (themeItem.showStyle === styleMode) {
+                this.loadStyle(themeItem.currentFileName);
+            }
+        })
+    }
+    new themeObject().setTheme();
+
     }
 }
