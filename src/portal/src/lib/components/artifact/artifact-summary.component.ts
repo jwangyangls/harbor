@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit } from "@angular/core";
 
-import { TagService, Tag, VulnerabilitySeverity, VulnerabilitySummary } from "../../services";
+import { TagService, Tag, VulnerabilitySeverity, VulnerabilitySummary, ArtifactService, ProjectService } from "../../services";
 import { ErrorHandler } from "../../utils/error-handler";
 import { Label } from "../../services/interface";
 import { forkJoin } from "rxjs";
@@ -8,6 +8,8 @@ import { UserPermissionService } from "../../services/permission.service";
 import { USERSTATICPERMISSION } from "../../services/permission-static";
 import { ChannelService } from "../../services/channel.service";
 import { DEFAULT_SUPPORTED_MIME_TYPE, VULNERABILITY_SCAN_STATUS, VULNERABILITY_SEVERITY } from "../../utils/utils";
+import { TagUi } from "./tag-cards/tag";
+import { Reference, Artifact } from "./artifact";
 
 const TabLinkContentMap: { [index: string]: string } = {
   "tag-history": "history",
@@ -15,13 +17,13 @@ const TabLinkContentMap: { [index: string]: string } = {
 };
 
 @Component({
-  selector: "hbr-tag-detail",
-  templateUrl: "./tag-detail.component.html",
-  styleUrls: ["./tag-detail.component.scss"],
+  selector: "artifact-summary",
+  templateUrl: "./artifact-summary.component.html",
+  styleUrls: ["./artifact-summary.component.scss"],
 
   providers: []
 })
-export class TagDetailComponent implements OnInit {
+export class ArtifactSummaryComponent implements OnInit {
   _highCount: number = 0;
   _mediumCount: number = 0;
   _lowCount: number = 0;
@@ -29,22 +31,72 @@ export class TagDetailComponent implements OnInit {
   labels: Label;
   vulnerabilitySummary: VulnerabilitySummary;
   @Input()
-  tagId: string;
+  artifactId: number;
   @Input()
   repositoryId: string;
   @Input()
   withAdmiral: boolean;
-  tagDetails: Tag = {
-    name: "--",
-    size: "--",
-    author: "--",
-    created: new Date(),
-    architecture: "--",
-    os: "--",
-    "os.version": "--",
-    docker_version: "--",
-    digest: "--",
-    labels: []
+  artifactDetails: Artifact =
+    {
+      "id": 1,
+      type: 'image',
+      repository: "goharbor/harbor-portal",
+      tags: [{
+        id: '1',
+        name: 'tag1',
+        upload_time: '2020-01-06T09:40:08.036866579Z',
+        latest_download_time: '2020-01-06T09:40:08.036866579Z',
+    },
+    {
+        id: '2',
+        name: 'tag2',
+        upload_time: '2020-01-06T09:40:08.036866579Z',
+        latest_download_time: '2020-01-06T09:40:08.036866579Z',
+    },],
+      references: [new Reference(1), new Reference(2)],
+      media_type: 'string',
+      "digest": "sha256:4875cda368906fd670c9629b5e416ab3d6c0292015f3c3f12ef37dc9a32fc8d4",
+      "size": 20372934,
+      "scan_overview": {
+        "application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0": {
+          "report_id": "5e64bc05-3102-11ea-93ae-0242ac140004",
+          "scan_status": "Error",
+          "severity": "",
+          "duration": 118,
+          "summary": null,
+          "start_time": "2020-01-07T04:01:23.157711Z",
+          "end_time": "2020-01-07T04:03:21.662766Z"
+        }
+      },
+      "labels": [
+        {
+          "id": 3,
+          "name": "aaa",
+          "description": "",
+          "color": "#0095D3",
+          "scope": "g",
+          "project_id": 0,
+          "creation_time": "2020-01-13T05:44:00.580198Z",
+          "update_time": "2020-01-13T05:44:00.580198Z",
+          "deleted": false
+        },
+        {
+          "id": 6,
+          "name": "dbc",
+          "description": "",
+          "color": "",
+          "scope": "g",
+          "project_id": 0,
+          "creation_time": "2020-01-13T08:27:19.279123Z",
+          "update_time": "2020-01-13T08:27:19.279123Z",
+          "deleted": false
+        }
+      ],
+      "push_time": "2020-01-07T03:33:41.162319Z",
+      "pull_time": "0001-01-01T00:00:00Z",
+      hasReferenceArtifactList: [],
+      noReferenceArtifactList: []
+
   };
 
   @Output()
@@ -54,34 +106,103 @@ export class TagDetailComponent implements OnInit {
   hasVulnerabilitiesListPermission: boolean;
   hasBuildHistoryPermission: boolean;
   @Input() projectId: number;
+  projectName: string;
   showStatBar: boolean = true;
+  tagList: TagUi[] = [
+    { 
+      name: 'dev',
+      pull_time: '2020-01-07T03:33:41.162319Z', push_time: '2020-01-01T03:33:41.162319Z',
+      showLabels: [], // private
+      labelFilterName: '', // private
+      labels: [
+        {
+          "id": 1,
+          "name": "ewsq",
+          "description": "",
+          "color": "#A9B6BE",
+          "scope": "g",
+          "project_id": 0,
+          "creation_time": "2020-01-10T06:51:28.559519Z",
+          "update_time": "2020-01-10T06:51:28.559519Z",
+          "deleted": false
+        },
+        {
+          "id": 1,
+          "name": "ewsq",
+          "description": "",
+          "color": "#A9B6BE",
+          "scope": "g",
+          "project_id": 0,
+          "creation_time": "2020-01-10T06:51:28.559519Z",
+          "update_time": "2020-01-10T06:51:28.559519Z",
+          "deleted": false
+        }
+      ]
+    },
+    {
+      name: "v1.10.0",
+      pull_time: '2020-01-07T03:33:41.162319Z', push_time: '2020-01-01T03:33:41.162319Z',
+      showLabels: [],
+      labelFilterName: '',
+      labels: [
+        {
+          "id": 2,
+          "name": "ewsq",
+          "description": "",
+          "color": "#A9B6BE",
+          "scope": "g",
+          "project_id": 0,
+          "creation_time": "2020-01-10T06:51:28.559519Z",
+          "update_time": "2020-01-10T06:51:28.559519Z",
+          "deleted": false
+        },
+        {
+          "id": 1,
+          "name": "ewsq",
+          "description": "",
+          "color": "#A9B6BE",
+          "scope": "g",
+          "project_id": 0,
+          "creation_time": "2020-01-10T06:51:28.559519Z",
+          "update_time": "2020-01-10T06:51:28.559519Z",
+          "deleted": false
+        }
+      ]
+    }
+  ];
   constructor(
-    private tagService: TagService,
+    private projectService: ProjectService,
+    private artifactService: ArtifactService,
     public channel: ChannelService,
     private errorHandler: ErrorHandler,
     private userPermissionService: UserPermissionService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    if (this.repositoryId && this.tagId) {
-      this.tagService.getTag(this.repositoryId, this.tagId).subscribe(
-        response => {
-          this.getTagDetails(response);
-        },
-        error => this.errorHandler.error(error)
-      );
+    if (this.repositoryId && this.artifactId) {
+      // this.tagService.getTag(this.repositoryId, this.tagId).subscribe(
+        this.projectService.getProject(this.projectId).subscribe(project => {
+          this.projectName = project.name;
+          this.artifactService.getArtifactFromId(this.projectName, this.repositoryId, this.artifactId).subscribe(
+            response => {
+              this.getArtifactDetails(response);
+            },
+            error => this.errorHandler.error(error)
+          );
+        })
+      
     }
     this.getTagPermissions(this.projectId);
-    this.channel.tagDetail$.subscribe(tag => {
-       this.getTagDetails(tag);
+    this.channel.tagDetail$.subscribe(artifact => {
+      this.getArtifactDetails(artifact);
     });
   }
-  getTagDetails(tagDetails: Tag): void {
-    this.tagDetails = tagDetails;
-    if (tagDetails
-        && tagDetails.scan_overview
-        && tagDetails.scan_overview[DEFAULT_SUPPORTED_MIME_TYPE]) {
-      this.vulnerabilitySummary = tagDetails.scan_overview[DEFAULT_SUPPORTED_MIME_TYPE];
+  getArtifactDetails(artifactDetails: Artifact): void {
+    this.artifactDetails = artifactDetails;
+    if (artifactDetails
+      && artifactDetails.scan_overview
+      && artifactDetails.scan_overview[DEFAULT_SUPPORTED_MIME_TYPE]) {
+      this.vulnerabilitySummary = artifactDetails.scan_overview[DEFAULT_SUPPORTED_MIME_TYPE];
       this.showStatBar = false;
     }
   }
@@ -103,14 +224,14 @@ export class TagDetailComponent implements OnInit {
     return count > 1 ? "TAG.HAVE" : "TAG.HAS";
   }
 
-  public get author(): string {
-    return this.tagDetails && this.tagDetails.author
-      ? this.tagDetails.author
-      : "TAG.ANONYMITY";
-  }
+  // public get author(): string {
+  //   return this.artifactDetails && this.artifactDetails.author
+  //     ? this.artifactDetails.author
+  //     : "TAG.ANONYMITY";
+  // }
   private getCountByLevel(level: string): number {
     if (this.vulnerabilitySummary && this.vulnerabilitySummary.summary
-        && this.vulnerabilitySummary.summary.summary) {
+      && this.vulnerabilitySummary.summary.summary) {
       return this.vulnerabilitySummary.summary.summary[level];
     }
     return 0;
@@ -154,13 +275,13 @@ export class TagDetailComponent implements OnInit {
   }
   get hasCve(): boolean {
     return this.vulnerabilitySummary
-           && this.vulnerabilitySummary.scan_status === VULNERABILITY_SCAN_STATUS.SUCCESS
-           && this.vulnerabilitySummary.severity !== VULNERABILITY_SEVERITY.NONE;
+      && this.vulnerabilitySummary.scan_status === VULNERABILITY_SCAN_STATUS.SUCCESS
+      && this.vulnerabilitySummary.severity !== VULNERABILITY_SEVERITY.NONE;
   }
   public get scanCompletedDatetime(): Date {
-    return this.tagDetails && this.tagDetails.scan_overview
-    && this.tagDetails.scan_overview[DEFAULT_SUPPORTED_MIME_TYPE]
-      ? this.tagDetails.scan_overview[DEFAULT_SUPPORTED_MIME_TYPE].end_time
+    return this.artifactDetails && this.artifactDetails.scan_overview
+      && this.artifactDetails.scan_overview[DEFAULT_SUPPORTED_MIME_TYPE]
+      ? this.artifactDetails.scan_overview[DEFAULT_SUPPORTED_MIME_TYPE].end_time
       : null;
   }
 
@@ -256,7 +377,7 @@ export class TagDetailComponent implements OnInit {
       },
     ];
   }
-  isThemeLight()  {
+  isThemeLight() {
     return localStorage.getItem('styleModeLocal') === 'LIGHT';
   }
 }

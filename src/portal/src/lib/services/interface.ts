@@ -54,21 +54,23 @@ export interface Repository {
  */
 
 export interface Tag extends Base {
-  digest: string;
+  digest?: string;
   name: string;
-  size: string;
-  architecture: string;
-  os: string;
-  'os.version': string;
-  docker_version: string;
-  author: string;
-  created: Date;
+  size?: string;
+  architecture?: string;
+  os?: string;
+  'os.version'?: string;
+  docker_version?: string;
+  author?: string;
+  created?: Date;
   signature?: string;
   scan_overview?: ScanOverview;
-  labels: Label[];
+  labels?: Label[];
   push_time?: string;
   pull_time?: string;
   immutable?: boolean;
+  latest_download_time?: string;
+  upload_time?: string;
 }
 
 /**
