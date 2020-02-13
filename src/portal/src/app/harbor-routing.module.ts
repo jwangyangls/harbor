@@ -42,8 +42,8 @@ import { AuditLogComponent } from './log/audit-log.component';
 import { LogPageComponent } from './log/log-page.component';
 
 import { RepositoryPageComponent } from './repository/repository-page.component';
-import { TagRepositoryComponent } from './repository/tag-repository/tag-repository.component';
-import { TagDetailPageComponent } from './repository/tag-detail/tag-detail-page.component';
+import { ArtifactListPageComponent } from './repository/artifact-list-page/artifact-list-page.component';
+import { ArtifactSummaryPageComponent } from './repository/artifact-summary-page/artifact-summary-page.component';
 import { LeavingRepositoryRouteDeactivate } from './shared/route/leaving-repository-deactivate.service';
 
 import { ProjectComponent } from './project/project.component';
@@ -169,7 +169,7 @@ const harborRoutes: Routes = [
       },
       {
         path: 'tags/:id/:repo',
-        component: TagRepositoryComponent,
+        component: ArtifactListPageComponent,
         canActivate: [MemberGuard],
         resolve: {
           projectResolver: ProjectRoutingResolver
@@ -177,16 +177,25 @@ const harborRoutes: Routes = [
       },
       {
         path: 'projects/:id/repositories/:repo',
-        component: TagRepositoryComponent,
+        component: ArtifactListPageComponent,
         canActivate: [MemberGuard],
         canDeactivate: [LeavingRepositoryRouteDeactivate],
         resolve: {
           projectResolver: ProjectRoutingResolver
-        }
+        },
       },
       {
-        path: 'projects/:id/repositories/:repo/tags/:tag',
-        component: TagDetailPageComponent,
+        path: 'projects/:id/repositories/:repo/depth/:depth',
+        component: ArtifactListPageComponent,
+        canActivate: [MemberGuard],
+        canDeactivate: [LeavingRepositoryRouteDeactivate],
+        resolve: {
+          projectResolver: ProjectRoutingResolver
+        },
+      },
+      {
+        path: 'projects/:id/repositories/:repo/artifacts/:digest',
+        component: ArtifactSummaryPageComponent,
         canActivate: [MemberGuard],
         resolve: {
           projectResolver: ProjectRoutingResolver
@@ -258,7 +267,7 @@ const harborRoutes: Routes = [
                 action: USERSTATICPERMISSION.REPOSITORY.VALUE.LIST
               }
             },
-            component: TagRepositoryComponent
+            component: ArtifactListPageComponent
           },
           {
             path: 'members',

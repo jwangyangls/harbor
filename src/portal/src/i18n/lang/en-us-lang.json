@@ -616,6 +616,9 @@
         "DELETE": "Delete",
         "NAME": "Name",
         "TAGS_COUNT": "Tags",
+        "PLATFORM": "OS/ARCH",
+        "ARTIFACT_TOOTIP": "Click this icon to enter the Artifact list of refer",
+        "ARTIFACTS_COUNT": "Artifacts",
         "PULL_COUNT": "Pulls",
         "PULL_COMMAND": "Pull Command",
         "PULL_TIME": "Pull Time",
@@ -634,6 +637,8 @@
         "TAGS_NO_DELETE": "Delete is prohibited in read only mode.",
         "FILTER_FOR_REPOSITORIES": "Filter Repositories",
         "TAG": "Tag",
+        "ARTIFACT": "Aarifact",
+        "ARTIFACTS": "Artifacts",
         "SIZE": "Size",
         "VULNERABILITY": "Vulnerabilities",
         "BUILD_HISTORY": "Build History",
@@ -660,8 +665,9 @@
         "LABELS": "Labels",
         "ADD_LABEL_TO_IMAGE": "Add labels to this image",
         "FILTER_BY_LABEL": "Filter images by label",
+        "FILTER_ARTIFACT_BY_LABEL": "Filter actifact by label",
         "ADD_LABELS": "Add labels",
-        "RETAG": "Retag",
+        "RETAG": "Copy ",
         "ACTION": "ACTION",
         "DEPLOY": "DEPLOY",
         "ADDITIONAL_INFO": "Add Additional Info",
@@ -987,6 +993,9 @@
         "PUSH_COMMAND": "Push an image to this project:",
         "COPY_ERROR": "Copy failed, please try to manually copy the command references."
     },
+    "ARTIFACT": {
+        "FILTER_FOR_ARTIFACTS": "Filter Artifacts"
+    },
     "TAG": {
         "CREATION_TIME_PREFIX": "Create on",
         "CREATOR_PREFIX": "by",
@@ -1007,7 +1016,14 @@
         "AUTHOR": "Author",
         "LABELS": "Labels",
         "CREATION": "Create on",
-        "COMMAND": "Commands"
+        "COMMAND": "Commands",
+        "UPLOADTIME": "Upload Time",
+        "NAME": "Name",
+        "PULL_TIME": "Pull Time",
+        "PUSH_TIME": "Push Time",
+        "OF": "of",
+        "ADD_TAG": "ADD TAG",
+        "REMOVE_TAG": "REMOVE TAG"
     },
     "LABEL": {
         "LABEL": "Label",
