@@ -15,6 +15,7 @@
 package doublestar
 
 import (
+	"encoding/json"
 	"github.com/bmatcuk/doublestar"
 	"github.com/goharbor/harbor/src/pkg/artifactselector"
 )
@@ -43,6 +44,8 @@ type selector struct {
 	decoration string
 	// The pattern expression
 	pattern string
+	// whether match untagged
+	untagged bool
 }
 
 // Select candidates by regular expressions
@@ -97,36 +100,52 @@ func (s *selector) Select(artifacts []*artifactselector.Candidate) (selected []*
 }
 
 func (s *selector) tagSelectMatch(artifact *artifactselector.Candidate) (selected bool, err error) {
-	for _, t := range artifact.Tags {
-		matched, err := match(s.pattern, t)
-		if err != nil {
-			return false, err
+	if len(artifact.Tags) > 0 {
+		for _, t := range artifact.Tags {
+			matched, err := match(s.pattern, t)
+			if err != nil {
+				return false, err
+			}
+			if matched {
+				return true, nil
+			}
 		}
-		if matched {
-			return true, nil
-		}
+		return false, nil
 	}
-	return false, nil
+	return s.untagged, nil
 }
 
 func (s *selector) tagSelectExclude(artifact *artifactselector.Candidate) (selected bool, err error) {
-	for _, t := range artifact.Tags {
-		matched, err := match(s.pattern, t)
-		if err != nil {
-			return false, err
+	if len(artifact.Tags) > 0 {
+		for _, t := range artifact.Tags {
+			matched, err := match(s.pattern, t)
+			if err != nil {
+				return false, err
+			}
+			if !matched {
+				return true, nil
+			}
 		}
-		if !matched {
-			return true, nil
-		}
+		return false, nil
 	}
-	return false, nil
+	return !s.untagged, nil
 }
 
 // New is factory method for doublestar selector
-func New(decoration string, pattern string) artifactselector.Selector {
+func New(decoration string, pattern string, extras string) artifactselector.Selector {
+	untagged := false // default behavior for upgrade
+	if extras != "" {
+		var extraObj struct {
+			Untagged bool `json:"untagged"`
+		}
+		if err := json.Unmarshal([]byte(extras), &extraObj); err == nil {
+			untagged = extraObj.Untagged
+		}
+	}
 	return &selector{
 		decoration: decoration,
 		pattern:    pattern,
+		untagged:   untagged,
 	}
 }
 
