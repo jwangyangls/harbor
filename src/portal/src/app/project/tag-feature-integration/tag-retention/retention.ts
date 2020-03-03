@@ -96,6 +96,7 @@ export class Rule extends BaseRule {
     constructor() {
         super();
         this.params = {};
+        this.tag_selectors[0].extras = { untagged: false };
     }
 }
 
@@ -103,6 +104,7 @@ export class Selector {
     kind: string;
     decoration: string;
     pattern: string;
+    extras?: {untagged: boolean};
 }
 
 export class Param {
