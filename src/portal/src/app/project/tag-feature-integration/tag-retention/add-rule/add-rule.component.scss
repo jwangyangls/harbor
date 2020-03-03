@@ -13,5 +13,13 @@
 }
 
 .display-none {
-  display: none
+  display: none;
+}
+
+.untagged {
+  display: flex;
+  justify-content: space-around;
+}
+.modal-body {
+  overflow-y: hidden;
 }
