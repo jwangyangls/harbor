@@ -96,7 +96,7 @@ export class Rule extends BaseRule {
     constructor() {
         super();
         this.params = {};
-        this.tag_selectors[0].extras = { untagged: false };
+        this.tag_selectors[0].extras = JSON.stringify({untagged: true});
     }
 }
 
@@ -104,7 +104,7 @@ export class Selector {
     kind: string;
     decoration: string;
     pattern: string;
-    extras?: {untagged: boolean};
+    extras?: string;
 }
 
 export class Param {
