@@ -137,6 +137,12 @@ func (suite *RegExpSelectorTestSuite) TestTagExcludes() {
 	require.NoError(suite.T(), err)
 	assert.Equal(suite.T(), 0, len(selected))
 
+	tagExcludes1 := New(Excludes, "{latest,4.*}", "")
+
+	selected, err = tagExcludes1.Select(suite.artifacts)
+	require.NoError(suite.T(), err)
+	assert.Equal(suite.T(), 0, len(selected))
+
 	tagExcludes2 := &selector{
 		decoration: Excludes,
 		pattern:    "4.*",

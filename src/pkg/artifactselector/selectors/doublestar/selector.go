@@ -134,6 +134,9 @@ func (s *selector) tagSelectExclude(artifact *artifactselector.Candidate) (selec
 // New is factory method for doublestar selector
 func New(decoration string, pattern string, extras string) artifactselector.Selector {
 	untagged := false // default behavior for upgrade
+	if decoration == Excludes {
+		untagged = true
+	}
 	if extras != "" {
 		var extraObj struct {
 			Untagged bool `json:"untagged"`
