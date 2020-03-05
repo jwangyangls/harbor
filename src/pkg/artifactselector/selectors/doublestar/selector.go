@@ -133,9 +133,9 @@ func (s *selector) tagSelectExclude(artifact *artifactselector.Candidate) (selec
 
 // New is factory method for doublestar selector
 func New(decoration string, pattern string, extras string) artifactselector.Selector {
-	untagged := false // default behavior for upgrade
+	untagged := true // default behavior for upgrade, active keep the untagged images
 	if decoration == Excludes {
-		untagged = true
+		untagged = false
 	}
 	if extras != "" {
 		var extraObj struct {
