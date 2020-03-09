@@ -245,7 +245,7 @@
         "ROBOT_ACCOUNTS": "Robot Accounts",
         "WEBHOOKS": "Webhooks",
         "IMMUTABLE_TAG": "Tag Immutability",
-        "TAG_STRATEGY": "Tag Strategy"
+        "POLICY": "Policy"
     },
     "PROJECT_CONFIG": {
         "REGISTRY": "Dépôt du Projet",
@@ -1191,10 +1191,11 @@
         "IN_REPOSITORIES": "For the repositories",
         "REP_SEPARATOR": "Enter multiple comma separated repos,repo*,or **",
         "TAGS": "Tags",
+        "INCLUDE_UNTAGGED": " Include untagged artifacts []",
         "UNTAGGED": " untagged",
         "MATCHES_TAGS": "Matches tags",
         "MATCHES_EXCEPT_TAGS": "Matches except tags",
-        "TAG_SEPARATOR": "Enter multiple comma separated tags,tag*,or **, tick ​​the checkbox to select untagged rules",
+        "TAG_SEPARATOR": "Enter multiple comma separated tags, tag*, or **. Optionally include untagged images as part of this policy ",
         "LABELS": "Labels",
         "MATCHES_LABELS": "Matches Labels",
         "MATCHES_EXCEPT_LABELS": "Matches except Labels",
