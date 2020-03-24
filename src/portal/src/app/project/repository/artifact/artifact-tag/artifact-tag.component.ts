@@ -166,4 +166,8 @@ export class ArtifactTagComponent implements OnInit {
     this.openTag = !this.openTag;
     this.newTagformShow = false;
   }
+  hasImmutableOnTag(): boolean {
+    return this.selectedRow.some((artifact) => artifact.immutable);
+  }
+
 }
