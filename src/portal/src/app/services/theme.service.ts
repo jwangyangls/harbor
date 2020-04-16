@@ -27,5 +27,5 @@ loadStyle(styleName: string) {
 
         head.appendChild(style);
     }
-}
+  }
 }
